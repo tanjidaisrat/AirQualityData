@@ -132,7 +132,7 @@ plt.title('Top 10 Most Polluted Cities by PM10')
 
 ## 📬 Let's Connect
 📧 Email: [tanjidaisratr@gmail.com]  
-🔗 LinkedIn: [Your LinkedIn Profile]  
+🔗 LinkedIn: [www.linkedin.com/in/tanjida-israt-ritu-27481b361]  
 🐍 GitHub: [https://github.com/tanjidaisrat]
 
 ---
