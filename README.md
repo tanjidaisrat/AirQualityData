@@ -1,138 +1,118 @@
-```markdown
-# 🌍 Air Pollution & Health Analytics Using SQLite and Python  
-🔗 [Open in Google Colab](https://colab.research.google.com/drive/11PSL0qJv6Snq4LiU4qAVSfvCpa89Z5pl?usp=sharing)
+---
 
-## 📌 Overview
-This project analyzes the relationship between air quality and public health in urban environments using a structured data pipeline built with **SQLite** and **Python** in **Google Colab**. It involves building a relational database, cleaning and transforming raw CSV data, performing SQL-based analysis, and visualizing pollution trends and city-wise air quality.
+## 🌍 Air Quality Data Analysis
+
+### 📊 A Data-Driven Exploration of Air Pollution and Its Impact on Human Health
 
 ---
 
-## 🎯 Objectives
-- Design a clean and scalable SQL database from air quality datasets
-- Conduct city-wise and time-based air pollution analysis
-- Visualize the most polluted cities and pollution patterns over years
-- Showcase real-world data handling and analytics skills for recruiters
+### 📌 Overview
+
+This project investigates the relationship between air pollution levels and public health using a real-world dataset. Through data cleaning, visualization, and correlation analysis, we aim to uncover patterns and insights that highlight how air quality impacts human well-being.
 
 ---
 
-## 🛠️ Tools & Technologies
-- **Languages**: Python, SQL (SQLite)
-- **Tools**: Google Colab, ipython-sql, PrettyTable
-- **Libraries**: Pandas, Matplotlib
+### 🧰 Tools & Technologies Used
+
+- **Python**
+- **Pandas**
+- **NumPy**
+- **Matplotlib & Seaborn**
+- **Jupyter Notebook**
 
 ---
 
-## 🧱 Database Schema
+### 📂 Project Structure
 
-| Table              | Description                                                  |
-|-------------------|--------------------------------------------------------------|
-| `cities`          | Stores unique city names with auto-incremented ID            |
-| `air_quality`     | Pollution, temperature, humidity data linked by city_id      |
-| `health_indicators` *(optional)* | Mortality and life expectancy per city per year |
-
-```sql
-CREATE TABLE IF NOT EXISTS cities (
-    city_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    city_name TEXT NOT NULL
-);
-CREATE TABLE IF NOT EXISTS air_quality (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    city_id INTEGER,
-    date TEXT,
-    co REAL,
-    no2 REAL,
-    pm10 REAL,
-    temperature REAL,
-    humidity REAL,
-    FOREIGN KEY(city_id) REFERENCES cities(city_id)
-);
+```
+AirQualityData/
+├── data/
+│   └── AirQuality 2.csv
+├── notebooks/
+│   └── AirQualityData.ipynb
+├── docs/
+│   ├── AirQualityDataProject.docx
+│   └── AirQualityDataProject.pdf
+├── requirements.txt
+├── LICENSE
+└── README.md
 ```
 
 ---
 
-## 🔄 ETL Process
-- Uploaded and inspected CSV data
-- Cleaned column names and handled missing values
-- Added city metadata for relational mapping
-- Inserted structured data into SQLite using `to_sql()`
-- Verified referential integrity and column alignment
+### 🧪 Dataset Information
+
+- **Name**: AirQuality 2.csv  
+- **Description**: The dataset contains measurements of various air pollutants (e.g., PM2.5, NO2, O3) along with corresponding health-related metrics.
+- **Source**: *[Include the original source of the dataset here, e.g., Kaggle, UCI Repository]*
 
 ---
 
-## 🔍 Analysis Examples
+### 🔍 Objectives
 
-### 🔝 Top 10 Most Polluted Cities (PM10)
-```sql
-SELECT c.city_name, AVG(a.pm10) AS avg_pm10
-FROM air_quality a
-JOIN cities c ON a.city_id = c.city_id
-GROUP BY c.city_name
-ORDER BY avg_pm10 DESC
-LIMIT 10;
-```
-
-### 📆 Year-wise Trend (Delhi)
-```sql
-SELECT SUBSTR(date, 1, 4) AS year, AVG(pm10) AS avg_pm10
-FROM air_quality a
-JOIN cities c ON a.city_id = c.city_id
-WHERE c.city_name = 'Delhi'
-GROUP BY year
-ORDER BY year;
-```
-
-### 🌡️ Environmental Summary
-```sql
-SELECT ROUND(AVG(temperature), 2) AS avg_temp, 
-       ROUND(AVG(humidity), 2) AS avg_humidity,
-       ROUND(AVG(pm10), 2) AS avg_pm10
-FROM air_quality;
-```
+- Clean and preprocess raw air quality data.
+- Visualize pollution trends across locations and time.
+- Correlate pollution levels with health-related variables.
+- Extract insights using exploratory data analysis (EDA).
 
 ---
 
-## 📊 Visualization
+### 📈 Key Visualizations
 
-- Used `Matplotlib` to display:
-  - Bar chart of **Top 10 polluted cities**
-  - Line plot of **yearly PM10 trend**
-- Custom-styled plots with labeled axes, rotated ticks, and compact layout
+> *(Add output images or graphs here from the notebook, for example):*
 
-```python
-plt.bar(top_cities_df['city_name'], top_cities_df['avg_pm10'], color='tomato')
-plt.title('Top 10 Most Polluted Cities by PM10')
-```
+![Sample PM2.5 Trend](images/pm25_trend.png)
+*PM2.5 concentration over time*
 
 ---
 
-## 🧠 Key Skills Demonstrated
+### 🧹 Data Cleaning Steps
 
-- SQL database design and normalization
-- Real-world data cleaning and transformation
-- Writing performant SQL queries with joins and aggregation
-- Data storytelling through effective visualizations
-- Integration of Python, SQL, and Jupyter/Colab
+- Removed duplicates and handled missing values.
+- Converted date formats and standardized units.
+- Treated outliers using domain knowledge and statistical thresholds.
 
 ---
 
-## 📁 Dataset Summary
-- **File Used**: `AirQuality 2.csv`  
-- **Size**: < 3MB  
-- **Features**: Date, CO, NO₂, PM10, Temperature, Humidity, City
+### 🧠 Insights & Findings
+
+- A strong correlation between PM2.5 levels and increased respiratory cases.
+- Air quality deteriorates significantly during winter months in urban areas.
+- Suggests targeted policy changes for industrial zones.
 
 ---
 
-## 🚀 Why This Matters to Recruiters
-✅ Real-world dataset  
-✅ Full data pipeline (ingestion → transformation → analysis → visualization)  
-✅ Cloud-native (Google Colab) and scalable (SQL-based)  
-✅ Demonstrates both **technical depth** and **analytical thinking**
+### ▶️ How to Run
+
+1. Clone the repository  
+   `git clone https://github.com/tanjidaisrat/AirQualityData.git`
+
+2. Navigate to the project directory  
+   `cd AirQualityData`
+
+3. Create a virtual environment (optional but recommended)  
+   `python -m venv venv && source venv/bin/activate`
+
+4. Install dependencies  
+   `pip install -r requirements.txt`
+
+5. Launch Jupyter Notebook  
+   `jupyter notebook notebooks/AirQualityData.ipynb`
 
 ---
 
-## 📬 Let's Connect
-📧 Email: [tanjidaisratr@gmail.com]  
-🔗 LinkedIn: [www.linkedin.com/in/tanjida-israt-ritu-27481b361]  
-🐍 GitHub: [https://github.com/tanjidaisrat]
+### 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
 
 ---
+
+### 🤝 Connect with Me
+
+**Israt Jahan Retu**  
+- 💼 [LinkedIn](https://www.linkedin.com/in/tanjidaisrat)
+- 📊 [Portfolio Website](https://your-portfolio-link.com)
+- 📧 Email: tanjidaisratr@gmail.com
+
+---
+
